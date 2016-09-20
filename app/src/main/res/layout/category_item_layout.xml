@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:id="@+id/category_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/x10">
+
+        <ImageView
+            android:id="@+id/category_book_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/book_pic_3"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/x240"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/category_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="书籍标题"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/category_book_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/x7"
+                android:gravity="bottom"
+                android:lines="4"
+                android:text="@string/app_des"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/x3"
+            android:layout_marginRight="@dimen/x5"
+            android:background="@mipmap/img_right_arrow"/>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
