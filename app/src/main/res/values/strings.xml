@@ -2,5 +2,6 @@
     <string name="app_name">RecyclerViewDemo</string>
 
     <string name="app_des">\"Mary Morstan mendatangi Sherlock Holmes untuk meminta bantuannya memecahkan sebuah misteri. Sepuluh tahun yang lalu, ayah Mary, Kapten Arthur Morstan, kembali ke London dengan mengambil cuti dari resimennya di India. Katanya, di sana ia dan seorang temannya, Thaddeus Sholto, mendapatkan harta karun yang sangat besar jumlahnya. Tapi ketika Mary tiba di hotel tempat ayahnya tinggal, sang ayah sudah lenyap tanpa jejak. Sherlock Holmes menyambut misteri ini sebagai tantangan menarik. Lebih menarik daripada kokain yang telah membuatnya ketagihan bila sedang tak ada kegiatan. Dan kali ini pun Dr. Watson menyertainya, terutama karena ia sangat tertarik pada Mary Morstan yang di matanya begitu memesona.\"</string>
+    <string name="loading">加载中...</string>
 
 </resources>

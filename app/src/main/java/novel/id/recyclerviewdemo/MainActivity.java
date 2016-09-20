@@ -1,5 +1,6 @@
 package novel.id.recyclerviewdemo;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CategoryAdapter mCategoryAdapter;
 
     private View headerView;
-
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initListener();
     }
 
+    boolean isLoading;
 
     private void initRecyclerView() {
 
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        final LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mCategoryAdapter = new CategoryAdapter(mCategoryBean);
@@ -54,6 +56,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "我是第" + position + "项", Toast.LENGTH_SHORT).show();
             }
         });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int lastVisiableItemPosition = manager.findLastVisibleItemPosition();
+                if (lastVisiableItemPosition + 1 == mCategoryAdapter.getItemCount()){
+                    if (!isLoading){
+                        isLoading = true;
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //requestData();
+                                requestLoadMoreData();
+                                //    Toast.makeText(MainActivity.this, "已经没有新的了", Toast.LENGTH_SHORT).show();
+                                isLoading = false;
+                                // adapter.notifyItemRemoved(adapter.getItemCount());
+                            }
+                        },2000);
+                    }
+                }
+            }
+        });
+
 
     }
 
@@ -89,6 +120,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRlEnd.setOnClickListener(this);
         mRlUpdate.setOnClickListener(this);
     }
+    private int index = 1;
+
+    private void requestLoadMoreData(){
+
+        index++;
+
+        if (index <= 3) {
+            initData();
+        } else {
+            Toast.makeText(MainActivity.this, "已经没有新的了", Toast.LENGTH_SHORT).show();
+        }
+        // swipeRefreshLayout.setRefreshing(false);
+        mCategoryAdapter.notifyItemRemoved(mCategoryAdapter.getItemCount());
+
+
+    }
+
 
     private void initView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
