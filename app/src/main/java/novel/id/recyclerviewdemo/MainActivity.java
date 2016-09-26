@@ -46,8 +46,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        
+         //下方注释的代码用来解决headerview和footerview加载到头一个或者最后一个item  而不是占据一行的bug
+        /*final GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        // gridLayoutManager  布局管理器
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                //如果是第一个(添加HeaderView)   还有就是最后一个(FooterView)
+                return position == mCategoryBean.size() + 1 || position == 0 ? gridLayoutManager.getSpanCount() : 1;
+            }
+        });*/
+        
         mCategoryAdapter = new CategoryAdapter(mCategoryBean);
         mRecyclerView.setAdapter(mCategoryAdapter);
+        
+        
 
         setHeader(mRecyclerView);
         mCategoryAdapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
