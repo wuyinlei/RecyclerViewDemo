@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         
          //下方注释的代码用来解决headerview和footerview加载到头一个或者最后一个item  而不是占据一行的bug
@@ -145,11 +146,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (index <= 3) {
             initData();
+            mCategoryAdapter.notifyItemChanged(1,1);
         } else {
             Toast.makeText(MainActivity.this, "已经没有新的了", Toast.LENGTH_SHORT).show();
+            mCategoryAdapter.notifyItemRemoved(mCategoryAdapter.getItemCount());
+
         }
         // swipeRefreshLayout.setRefreshing(false);
-        mCategoryAdapter.notifyItemRemoved(mCategoryAdapter.getItemCount());
+//        mCategoryAdapter.notire
+
+
 
 
     }

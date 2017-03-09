@@ -27,14 +27,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setHeaderView(View headerView) {
         mHeaderView = headerView;
         notifyItemInserted(0);
+//        notifyItemChanged(1,1);
     }
 
     @Override
     public int getItemViewType(int position) {
         if (mHeaderView == null) return TYPE_NORMAL;
         if (position == 0) return TYPE_HEADER;
-        if (mHeaderView != null && position +1 == getItemCount()) return TYPE_FOOTER;
-        if (mHeaderView == null && position  == getItemCount()) return TYPE_FOOTER;
+        if (mHeaderView != null && position + 1 == getItemCount()) return TYPE_FOOTER;
+        if (mHeaderView == null && position == getItemCount()) return TYPE_FOOTER;
         return TYPE_NORMAL;
     }
 
@@ -58,8 +59,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return new ViewHolder(view);
     }
 
+    /**
+     * 1.重写onBindViewHolder(VH holder, int position, List<Object> payloads)这个方法
+     * <p>
+     * 2.执行两个参数的notifyItemChanged，第二个参数随便什么都行，只要不让它为空就OK~，
+     * 这样就可以实现只刷新item中某个控件了！！！
+     * payload 的解释为：如果为null，则刷新item全部内容
+     * 那言外之意就是不为空就可以局部刷新了~！
+     *
+     * @param holder  服用的holder
+     * @param position  当前位置
+     * @param payloads  如果为null，则刷新item全部内容  否则局部刷新
+     */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
         if (getItemViewType(position) == TYPE_HEADER) return;
         final int pos = getRealPosition(holder);
         if (holder instanceof ViewHolder) {
@@ -81,6 +95,32 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
         }
+
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+//        if (getItemViewType(position) == TYPE_HEADER) return;
+//        final int pos = getRealPosition(holder);
+//        if (holder instanceof ViewHolder) {
+//            ViewHolder holder1 = (ViewHolder) holder;
+//            if (pos == mCategoryBeen.size()) {
+//                return;
+//            }
+//            CategoryBean categoryBean = mCategoryBeen.get(pos);
+//            holder1.mCategoryDes.setText(categoryBean.getCategory_des());
+//            holder1.mCategoryTitle.setText(categoryBean.getCategory_title());
+//            holder1.mCategoryImg.setBackgroundResource(categoryBean.getImgUrl());
+//            ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (mOnItemClickListener != null) {
+//                        mOnItemClickListener.OnItemClick(view, pos, mCategoryBeen.get(pos));
+//
+//                    }
+//                }
+//            });
+//        }
     }
 
     public int getRealPosition(RecyclerView.ViewHolder holder) {
